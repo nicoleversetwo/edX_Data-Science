@@ -1,0 +1,122 @@
+#first we have to install some packages
+install.packages("tidyverse")
+install.packages("data.table")
+​
+#although we have the package installed, we have to load the library
+#do this with the function 'library'
+#note we don't need quotes to load a library
+library(tidyverse)
+library(data.table)
+?tidyverse
+​
+#We're going to start with a pre-loaded dataset
+PlantGrowth
+​
+#Finding dimensions PlantGrowth
+nrow(PlantGrowth)
+ncol(PlantGrowth)
+dim(PlantGrowth)
+​
+​
+#Exploring PlantGrowth
+rownames(PlantGrowth)
+head(PlantGrowth)
+colnames(PlantGrowth)
+names(PlantGrowth)
+​
+#if we want to access a specific column (variable), use the dollar sign $ operator
+PlantGrowth$weight
+mean(PlantGrowth)
+#why didn't that work?
+mean(PlantGrowth$weight)
+​
+#let's use the function "filter" to look at specific data
+filter(PlantGrowth, weight < 4)
+filter(PlantGrowth, weight == 3.59)
+nrow(filter(PlantGrowth, weight <7))
+​
+# You can add multiple arguments to filter the data even more
+filter(PlantGrowth, weight <= 10, group == ctrl)
+​
+# why didn't that work?
+filter(PlantGrowth, weight <= 10, group == "ctrl")
+​
+#let's sort the data
+arrange(PlantGrowth, weight)
+​
+#descending order
+arrange(PlantGrowth,desc(weight))
+​
+#let's change the data a bit...
+mutate(PlantGrowth, weight = weight*3)
+​
+PlantGrowth
+#the dataset hasn't changed at all
+TripleGrowth <- mutate(PlantGrowth, weight = weight*3)
+​
+#let's make a new column with this new measurement
+mutate(PlantGrowth, triple = weight*3)
+PlantGrowth
+TripleGrowth <- mutate(PlantGrowth, triple = weight*3)
+​
+#what if we have a messy dataset?
+mess <- data.frame(
+  name = c("Bill", "Paul", "Ginger"),
+  a = c(67, 40, 60),
+  b = c(56, 85, 71)
+)
+mess
+​
+#let's reorganize
+#identify data, then the two "key columns", and how to split the data
+gather(mess, drug, heartrate, a:b)
+mess
+gather(mess, drug, dose, a:b)
+mess
+lessmess <- gather(mess, drug, heartrate, a:b)
+lessmess
+​
+#this still isnt' ideal, since now we have the same name in multiple rows
+#we can use spread to fix this...
+#we want to spread out the data based on drug and heartrate, but connect to name
+spread(lessmess, drug, heartrate)
+​
+#LETS EXPLORE MORE DATA!
+starwars
+df <- starwars
+na.omit(starwars)
+​
+#let's try to use one of the tools we learned today
+#what if we only want to remove NAs from one column?
+filter(starwars, !is.na(birth_year))
+​
+​
+#IDEAS: remove NA, filter by tatooine / blue eyes, sort by birth year descending
+​
+​
+#explain %>%
+#data %>%
+#  filter(variable == “value”) %>%
+#  summarise(Total = sum(variable)) %>%
+#  arrange(desc(Total))
+​
+################EXTRA STUFF###########################
+######################################################
+##if you are going to load your own data, let's assume you want it to be 
+##tab separated, use fread function
+​
+##you can also use "read.csv" or use the radio buttons.  fread is faster
+#the tilda (~) points at your working directory
+getwd()
+data <- fread("~/foo.csv", sep="\t")
+#also works
+file.choose() 
+​
+#if we have time...
+install.packages("rmarkdown")
+library(rmarkdown)
+​
+with (PlantGrowth, hist(weight))
+with (PlantGrowth, plot (weight~group))
+with (PlantGrowth, plot (weight~group, col=weight))
+with (starwars, plot (name~hair_color, col=name))
