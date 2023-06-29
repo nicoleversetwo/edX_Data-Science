@@ -1,0 +1,57 @@
+###Basic
+​
+# 'age' object is a numeric object and 'favorite dish'
+# object is a character object
+# the operator '<-' associates the variable age with the number 25
+age <- 25
+​
+# the operator '<-' associates the variable favorite.dish with 
+# the number "almonds"
+favorite.dish <- "pizza"
+​
+# 'age' can concatenate more than only one age as 
+# well as favorite dish
+# the function c(object01, object02, ...) 
+# concatenates objects
+age <- c(25, 30, 26)
+favorite.dish <- c("pizza", "cake", "steak")
+​
+# age and favorite dish is a vector.
+age
+# each component could be accessed using '[position]'.
+age[1]
+age[2]
+​
+# favorite dish is also a vector.
+favorite.dish
+# each component could be accessed using '[position]'.
+favorite.dish[1]
+favorite.dish[2]
+​
+# sex is also a vector which could assume 
+# only two possible values: "female" and "male".
+sex <- c("female", "male", "female")
+sex
+​
+# sex has the special class called factor which
+# will be defined using the function
+# factor(object, levels)
+sex <- factor(sex, levels = c("female", "male"))
+sex
+​
+# A data.frame can be defined based on vectors
+# using the function data.frame(object01, object02, )
+student <- c("s01", "s02", "s03")
+​
+bioinformatics.course <- 
+  data.frame(student, sex, age, favorite.dish)
+​
+# To access the data frame biostatistics.course
+# you have just to type the name
+bioinformatics.course
+​
+# variables from a data frame can be accessed
+# using the operator $ and the variable name
+bioinformatics.course$student
+​
+bioinformatics.course$sex
